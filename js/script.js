@@ -20,8 +20,9 @@
 		$('#player').children('audio').attr({src:''});
 
 		//清空原来的播放进度时间
-		$('.progress').children('.timer').html('');
-
+		// $('.progress').children('.timer').html('');
+		$('.timer').html('');
+		$('.progress .pace').css('width', 0);
 		//获取'data-type' 属性值
 		var type = $(this).attr('data-type');
 
@@ -288,6 +289,7 @@
         });
 	}
 
+	//初始化默认 播放歌曲
    musicplay(2);
 
 

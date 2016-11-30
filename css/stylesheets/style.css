@@ -53,9 +53,12 @@ a {
   color: #ccc;
 }
 .songtype .type-group{
-  transform:translateX(-60px);
-  -webkit-transform:translateX(-60px);
-  -o-transform:translateX(-60px);
+  transform:translateX(-62px);
+  -webkit-transform:translateX(-62px);
+  -o-transform:translateX(-62px);
+  transition:all 1s;
+  -webkit-transition:all 0.5s;
+  -o-transition:all 0.5s;;
 }
 .songtype .type-group .type-group-item:hover{
 color: rgb(205,205,65);

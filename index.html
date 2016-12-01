@@ -5,8 +5,10 @@
 <meta name='viewport' content="width=device-width,initial-scale=1" />
 <title></title>
 <!-- <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.css"> -->
-<link rel="stylesheet" href="css/stylesheets/style.css">
 <link rel="stylesheet" href="font/font_01/iconfont.css">
+<link rel="stylesheet" href="font/font_02/iconfont.css">
+<link rel="stylesheet" href="font/font_03/iconfont.css">
+<link rel="stylesheet" href="css/stylesheets/style.css">
 <script src="js/jquery-1.7.2.min.js"></script>
 </head>
 <body>
@@ -15,15 +17,24 @@
 	<div class="songtype">
 		<span class='iconfont icon-liebiao show-type-btn'></span>
 		<ul class="type-group">
-			<li data-type='1' class="type-group-item">新歌</li>
-			<li data-type='2' class="type-group-item">热歌</li>
-			<li data-type='11' class="type-group-item">摇滚</li>
-			<li data-type='12' class="type-group-item">爵士</li>
-			<li data-type='16' class="type-group-item">流行</li>
-			<li data-type='21' class="type-group-item">欧美金曲</li>
-			<li data-type='22' class="type-group-item">经典老歌</li>
-			<li data-type='23' class="type-group-item">情歌对唱</li>
-			<li data-type='24' class="type-group-item">影视金曲</li>
+			<li data-type='1' class="type-group-item">
+			<span class='iconfont icon-xingebang'></span>新歌</li>
+				<li data-type='2' class="type-group-item">
+					<span class='iconfont icon-re'></span>热歌</li>
+					<li data-type='11' class="type-group-item">
+					<span class='iconfont icon-gu'></span>摇滚</li>
+					<li data-type='12' class="type-group-item">
+					<span class='iconfont icon-silhouettes206'></span>爵士</li>
+					<li data-type='16' class="type-group-item">
+					<span class='iconfont icon-liuxingjinqu'></span>流行</li>
+					<li data-type='21' class="type-group-item">
+					<span class='iconfont icon-ouzhou'></span>欧美金曲</li>
+					<li data-type='22' class="type-group-item">
+					<span class='iconfont icon-jingdian'></span>经典老歌</li>
+					<li data-type='23' class="type-group-item">
+				<span class='iconfont icon-changge'></span>情歌对唱</li>
+			<li data-type='24' class="type-group-item">
+			<span class='iconfont icon-yingshijinqu'></span>影视金曲</li>
 		</ul>
 	</div>
 	<div class="cover"></div>
@@ -59,8 +70,15 @@
 		</div>
 	</div>
 </div>
+	<form class="input-group">
+<input type="text" class="form-control input-bg" id="song-input">
+	<span class="input-group-btn ">
+		<button class="btn btn-default btn-serach iconfont icon-sousuo" type="button"></button>
+	</span>
+	</form>
 <ul id="playlist"></ul>
 <script src="js/jquery-ui-1.8.17.custom.min.js"></script>
+<script src="js/jquery.scrolltxt.js"></script>
 <script src="js/script.js"></script>
 </body>
 </html>

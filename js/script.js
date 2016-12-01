@@ -1,6 +1,5 @@
 ﻿;(function($){
 
-	// 初始化 默认歌曲列表
 
 	//show song type
 	$('.show-type-btn').on('touchstart',function(){
@@ -34,13 +33,9 @@
 	})
 
 
-	function musicplay(num){
-		// Settings
-	var repeat = localStorage.repeat || 0,
-		shuffle = localStorage.shuffle || 'false',
-		continous = true,
-		autoplay = true,
-		playlist = [];
+	function musicplay(num,key){
+	// Settings
+	var playlist = [];
         // var song = {};
         $.ajax({
             url:'http://tingapi.ting.baidu.com/v1/restserver/ting',
@@ -73,14 +68,93 @@
                     });
                     //音乐信息
                     song.title = item.title;
-                    song.cover = item.pic_small;
+                    song.cover = item.pic_big;
                     song.artist = item.artist_name;
                     song.album = item.title + '.mp3';
 
                     playlist.push(song);
-                })
-                // console.log(playlist);
-                	// Load playlist
+                });
+                // Load playlist;
+				myplayer(playlist);
+            }
+        });
+	}
+
+	//初始化默认 播放歌曲
+   musicplay(2);
+
+   //点击收索按钮，执行搜索加载和播放歌曲；
+   $('.input-group-btn').on('touchstart',$('.btn-serach'),function(){
+
+   		//声明变量储存歌曲信息
+   		var songInfo = [];
+
+   		//获取搜索关键词
+   		var key = $('#song-input').val();
+
+   		//ajax请求加载到的歌曲内容
+
+   		$.ajax({
+   			url:'http://tingapi.ting.baidu.com/v1/restserver/ting',
+   			data:{
+   				method:'baidu.ting.search.catalogSug',
+   				query:key
+   			},
+   			dataType:'jsonp',
+   			success:function(res){
+   				var songList = res.song;
+
+   				//遍历数组对象
+   				$.each(songList,function(idx,item){
+   					var song = {};
+   					$.ajax({
+   						url:'http://tingapi.ting.baidu.com/v1/restserver/ting',
+   						data:{
+   							method:'baidu.ting.song.play',
+   							songid:item.songid
+   						},
+   						dataType:'jsonp',
+   						success:function(res){
+
+                            song.mp3 = res.bitrate.show_link;
+                            song.cover = res.songinfo.pic_big;
+                            songInfo.push(song);
+                        }
+                    });
+   					song.title = item.songname;
+                    song.artist = item.artistname;
+                    song.album = song.title + '.mp3';
+
+   					songInfo.push(song);
+   				});
+   				//清空原来歌曲列表 避免重复
+   				$('#playlist').html('');
+
+				//必须先清空原来的这在播放的src 属性值再由后面来生成链接；
+				$('#player').children('audio').attr({src:''});
+
+				//清空原来的播放进度时间
+				// $('.progress').children('.timer').html('');
+				$('.timer').html('');
+				$('.progress .pace').css('width', 0);
+
+				//搜索完歌曲自动清空输入框
+				$('#song-input').val('');
+				//调用函数播放歌曲
+				myplayer(songInfo);
+
+   			}
+
+   		})
+   });
+
+
+   //封装函数；
+function myplayer(playlist){
+	var repeat = localStorage.repeat || 0,
+		shuffle = localStorage.shuffle || 'false',
+		continous = true,
+		autoplay = true
 	for (var i=0; i<playlist.length; i++){
 		var item = playlist[i];
 		$('#playlist').append('<li>'+item.artist+' - '+item.title+'</li>');
@@ -285,12 +359,6 @@
 			$(this).addClass('enable');
 		}
 	});
-            }
-        });
-	}
-
-	//初始化默认 播放歌曲
-   musicplay(2);
-
+}
 
 })(jQuery);
